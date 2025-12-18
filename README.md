@@ -1,55 +1,138 @@
-# README Template
+# DSND Pipelines Project — Text Classification with NLP Pipelines
 
-Below is a template provided for use when building your README file for students.
+This project demonstrates how to build **production-ready, testable machine-learning pipelines** using **scikit-learn**, **spaCy**, and **Hugging Face Transformers**.  
+It is designed for the **Udacity Data Scientist Nanodegree (DSND)** and focuses on:
 
-# Project Title
+- Custom NLP transformers (lemmatization, POS/NER features, sentiment scoring)
+- End-to-end sklearn pipelines combining numeric, categorical, and text features
+- Proper **train vs test evaluation** with accuracy, precision, recall, F1, and confusion matrix
+- Fully automated **pytest-based unit tests** that validate pipeline correctness
 
-Project description goes here.
+---
 
 ## Getting Started
 
-Instructions for how to get a copy of the project running on your local machine.
+These instructions will help you set up the project locally and run the model pipelines and tests.
 
 ### Dependencies
 
+The project requires Python **3.9+** and the following libraries:
+
 ```
-Examples here
+pandas
+numpy
+scikit-learn
+spacy
+torch
+transformers
+matplotlib
+pytest
 ```
+
+Additionally, the spaCy English model is required:
+
+```
+en_core_web_sm
+```
+
+---
 
 ### Installation
 
-Step by step explanation of how to get a dev environment running.
+1. **Clone the repository**
+   ```bash
+   git clone git@github.com:gour6380/dsnd-pipelines-project.git
+   cd dsnd-pipelines-project
+   ```
 
-List out the steps
+2. **Create and activate a virtual environment**
+   ```bash
+   python3 -m venv .venv
+   source .venv/bin/activate
+   ```
 
-```
-Give an example here
-```
+3. **Install Python dependencies**
+   ```bash
+   python3 -m pip install --upgrade pip
+   python3 -m pip install -r requirements.txt
+   ```
+
+4. **Download spaCy language model**
+   ```bash
+   python3 -m spacy download en_core_web_sm
+   ```
+
+---
 
 ## Testing
 
-Explain the steps needed to run any automated tests
+Automated unit tests are written using **pytest** to ensure that all transformers, pipelines, and evaluation logic work correctly.
+
+### Running Tests
+
+From the project root directory, run:
+
+```bash
+python3 -m pytest -q
+```
+
+---
 
 ### Break Down Tests
 
-Explain what each test does and why
+The test suite is located in the `tests/` directory and covers the following components:
 
-```
-Examples here
-```
+#### 1. Transformer Tests (`test_transformers.py`)
+- Verifies that:
+  - `SpacyTextLemmatizer` returns cleaned, lemmatized text
+  - Stop words and punctuation are removed correctly
+  - `SpacyPOSNERTransformer` outputs the correct feature shape `(n_samples, 4)`
+  - `TransformerSentimentScorer` produces signed sentiment scores
+- Uses **fake spaCy and Hugging Face pipelines** to avoid heavy downloads
+
+#### 2. Pipeline Smoke Test (`test_pipeline_smoke.py`)
+- Confirms that:
+  - A full sklearn pipeline (numeric + categorical + text features) can `fit()` and `predict()`
+  - Custom transformers integrate correctly inside `ColumnTransformer` and `FeatureUnion`
+  - Predictions are valid binary outputs
+
+#### 3. Evaluation Tests (`test_evaluate.py`)
+- Ensures that:
+  - `evaluate_classifier` returns a metrics DataFrame indexed by `train` and `test`
+  - Accuracy, precision, recall, and F1 are computed correctly
+  - A valid 2×2 confusion matrix is produced
+- Notebook-specific functions like `display()` and `plt.show()` are safely monkey-patched
+
+---
 
 ## Project Instructions
 
-This section should contain all the student deliverables for this project.
+Students are expected to:
+
+1. Build reusable **custom sklearn transformers** for NLP tasks
+2. Combine numeric, categorical, and text features into a single pipeline
+3. Train and evaluate a classification model using proper metrics
+4. Demonstrate understanding of **train vs test performance**
+5. Write automated tests that validate:
+   - Transformer behavior
+   - Pipeline integration
+   - Evaluation correctness
+6. Ensure the project runs both in **Jupyter notebooks** and **pure Python environments**
+
+---
 
 ## Built With
 
-* [Item1](www.item1.com) - Description of item
-* [Item2](www.item2.com) - Description of item
-* [Item3](www.item3.com) - Description of item
+- [scikit-learn](https://scikit-learn.org/) — Machine learning pipelines and models  
+- [spaCy](https://spacy.io/) — NLP processing, lemmatization, POS, and NER  
+- [Hugging Face Transformers](https://huggingface.co/transformers/) — Pretrained sentiment analysis models  
+- [PyTorch](https://pytorch.org/) — Backend for transformer models  
+- [pytest](https://docs.pytest.org/) — Automated testing framework  
+- [matplotlib](https://matplotlib.org/) — Visualization (confusion matrix)
 
-Include all items used to build project.
+---
 
 ## License
 
-[License](LICENSE.txt)
+This project is licensed under the terms specified in the  
+[LICENSE](LICENSE.txt) file.
