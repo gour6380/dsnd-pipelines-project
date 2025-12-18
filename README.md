@@ -64,6 +64,29 @@ en_core_web_sm
 
 ---
 
+## Dataset
+
+This project uses a **women’s clothing reviews dataset** consisting of **18,442 customer reviews**.  
+The dataset is included directly in this repository and is provided as part of the **Udacity Data Scientist Nanodegree project**.
+
+**File:** `starter/data/reviews.csv`  
+
+**Format:** CSV file with **9 columns** (8 input features and 1 target variable, `Recommended IND`)  
+
+**How to obtain:** No additional download is required. The dataset is available locally after cloning the repository and can be used immediately to run the notebook and pipelines.
+
+## Notebook
+
+The primary analysis and model development are contained in a Jupyter Notebook.
+
+**File:** `starter/starter.ipynb`  
+
+**Description:**  
+This notebook walks through the full workflow of the project, including data exploration, feature engineering, construction of machine-learning pipelines, model training, and evaluation using train/test metrics.
+
+**How to run:**  
+After setting up the environment and installing dependencies, open the notebook and run all cells in order. The notebook automatically loads the dataset from `starter/data/reviews.csv` and does not require any additional configuration.
+
 ## Testing
 
 Automated unit tests are written using **pytest** to ensure that all transformers, pipelines, and evaluation logic work correctly.
